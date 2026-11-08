@@ -1,0 +1,22 @@
+[Unit]
+Description=Form-login front door for KasmVNC
+After=network.target
+
+[Service]
+Type=simple
+# Adjust the user, paths, and FD_* values to your setup.
+User=kasm
+Environment=FD_USERNAME=kasm-user
+Environment=FD_PASSWORD_FILE=/home/kasm/.kasm-frontdoor/password.txt
+Environment=FD_SECRET_FILE=/home/kasm/.kasm-frontdoor/secret.txt
+Environment=FD_UPSTREAM_HOST=127.0.0.1
+Environment=FD_UPSTREAM_PORT=8443
+Environment=FD_UPSTREAM_HTTPS=1
+Environment=FD_LISTEN_HOST=127.0.0.1
+Environment=FD_LISTEN_PORT=8952
+ExecStart=/usr/bin/python3 /opt/kasm-form-frontdoor/frontdoor.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
