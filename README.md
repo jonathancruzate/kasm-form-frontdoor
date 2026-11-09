@@ -2,6 +2,22 @@
 
 A form-login front door for [KasmVNC](https://kasmweb.com/kasmvnc): a standard HTML sign-in form and signed session-cookie gate in front of a KasmVNC server, with HTTP/WebSocket proxying. Pure Python standard library — no dependencies.
 
+## The full surfacing stack
+
+This repo is one piece of a larger pattern: **surfacing a live app window
+that is already running on a server inside an AI agent's browser**, as a
+native, phone-sized, takeover-able view. The front door makes the login
+work; two companion pieces make the window work:
+
+- **`window-follow.py`** (+ `kasm-window-follow.service`) — a small daemon
+  that keeps the proxied app window matched to the Kasm session size in
+  both directions, so phone clients get a reflowed app instead of a
+  cropped desktop.
+- **[SURFACING.md](SURFACING.md)** — the complete replication guide:
+  architecture, per-app setup, phone-sizing verification, security
+  posture, and the operating lessons (framebuffer-only browser prompts,
+  unverified surface statuses, and more), with a worked example.
+
 ## Why
 
 KasmVNC gates its web client with the browser's **native HTTP basic-auth prompt**. That prompt is a dead end for a lot of legitimate tooling:

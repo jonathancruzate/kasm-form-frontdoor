@@ -1,0 +1,17 @@
+[Unit]
+Description=Window-follow daemon — keep the proxied app matched to the Kasm session size
+After=graphical.target
+
+[Service]
+Type=simple
+# Adjust the user, path, and WF_* values to your app (one unit per app).
+User=kasm
+Environment=WF_SRC=:103
+Environment=WF_DST=:110
+Environment=WF_NAME_HINT=Greenhouse
+ExecStart=/usr/bin/python3 /opt/kasm-form-frontdoor/window-follow.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
